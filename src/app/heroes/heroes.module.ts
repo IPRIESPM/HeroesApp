@@ -11,13 +11,11 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
 
 @NgModule({
   declarations: [
-
-  
     HeroPageComponent,
-         LayoutPageComponent,
-         ListPageComponent,
-         NewPageComponent,
-         SearchPageComponent
+    LayoutPageComponent,
+    ListPageComponent,
+    NewPageComponent,
+    SearchPageComponent,
   ],
   imports: [
     CommonModule,
