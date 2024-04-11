@@ -31,5 +31,6 @@ module.exports = {
 		sourceType: 'module',
 	},
 	rules: {
+		'new-cap': 'off',
 	},
 };
