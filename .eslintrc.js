@@ -32,5 +32,9 @@ module.exports = {
 	},
 	rules: {
 		'new-cap': 'off',
+		'@typescript-eslint/consistent-type-imports': ['error', {
+			prefer: 'module',
+			disallow: ['camelCase', 'pascalCase'],
+		}],
 	},
 };
