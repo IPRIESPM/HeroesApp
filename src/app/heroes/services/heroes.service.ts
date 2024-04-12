@@ -30,7 +30,7 @@ export class HeroesService {
     return this.httpClient.post<Hero>(`${this.baseUrl}/heroes`,hero);
   }
 
-  update(hero:Hero):Observable<Hero>{
+  updateHero(hero:Hero):Observable<Hero>{
     if(!hero.id) throw new Error('Hero must have an id');
     return this.httpClient.patch<Hero>(`${this.baseUrl}/heroes/${hero.id}`,hero);
   }
