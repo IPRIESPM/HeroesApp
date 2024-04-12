@@ -10,43 +10,43 @@
   <div class="col-12 sm:col-6">
     <mat-card>
       <mat-card-content>
-        <div class="grid">
+        <form class="grid" [formGroup]="heroForm" (onsubmit)="onSubmit()">
           <mat-form-field class="col-12 sm:col-6">
             <mat-label>Súper héroe</mat-label>
-            <input matInput type="text" required>
+            <input matInput type="text" required formControlName="superhero">
           </mat-form-field>
           <mat-form-field class="col-12 sm:col-6">
             <mat-label>Alter ego</mat-label>
-            <input matInput type="text" required>
+            <input matInput type="text" required formControlName="alter_ego">
           </mat-form-field>
 
           <mat-form-field class="col-12">
             <mat-label>Primera aparición</mat-label>
-            <input matInput type="text" required>
+            <input matInput type="text" required formControlName="first_appearance">
           </mat-form-field>
           <mat-form-field class="col-12">
             <mat-label>Personajes</mat-label>
-            <input matInput type="text" required>
-          </mat-form-field>
-          <mat-form-field class="col-12">
-            <mat-label>Primera aparición</mat-label>
-            <input matInput type="text" required>
+            <input matInput type="text" formControlName="characters" required>
           </mat-form-field>
           <mat-form-field class="col-12">
             <mat-label>Creador</mat-label>
-            <mat-select required>
+            <mat-select required formControlName="publisher">
               <mat-option *ngFor="let pub of publishers" [value]="pub.id">
                 {{pub.desc}}
               </mat-option>
             </mat-select>
           </mat-form-field>
-        </div>
+          <mat-form-field class="col-12">
+            <mat-label>Imagen alternativa</mat-label>
+            <input matInput type="text" formControlName="alt_img">
+          </mat-form-field>
+        </form>
 
         <div class="flex justify-content-between">
           <button type="button" mat-flat-button color="warn">
             Borrar
           </button>
-          <button type="button" mat-flat-button color="primary">
+          <button type="button" mat-flat-button color="primary" (click)="onSubmit()">
             <mat-icon>save</mat-icon>
             Guardar
           </button>
@@ -56,7 +56,11 @@
   </div>
   <div class="col-12 sm:col-6">
     <mat-card>
-      <img src="" alt="héroe">
+      <img [src]="currentHero | HeroImage" alt="héroe">
     </mat-card>
   </div>
 </div>
+
+<pre>
+{{ currentHero | json}}
+</pre>
