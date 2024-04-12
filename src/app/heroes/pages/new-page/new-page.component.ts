@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Hero, Publisher } from '../../interfaces/hero.interface';
 import { HeroesService } from '../../services/heroes.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { filter, switchMap, tap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../components/confirmDialog/confirmDialog.component';
@@ -81,15 +81,20 @@ export class NewPageComponent implements OnInit {
     if (!this.currentHero.id) throw new Error('Hero id is required');
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: { name: this.currentHero.superhero },
+      data: this.currentHero,
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (!result) return;
-
-      this.heroesService.deleteHeroById(this.currentHero.id!);
-      this.router.navigate(['/heroes']);
-    });
+    dialogRef
+      .afterClosed()
+      .pipe(
+        filter((result: boolean) => result),
+        switchMap(() => this.heroesService.deleteHeroById(this.currentHero.id)),
+        filter((wasDeleted) => wasDeleted)
+      )
+      .subscribe(() => {
+        this.showSnackBar('Hero Deleted');
+        this.router.navigate(['/heroes']);
+      });
   }
 
   showSnackBar(message: string): void {
