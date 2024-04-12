@@ -1,6 +1,7 @@
 {
     "conventionalCommits.scopes": [
         "auth",
-        "heroes"
+        "heroes",
+        "backend"
     ]
 }
